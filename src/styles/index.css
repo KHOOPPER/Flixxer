@@ -1,0 +1,363 @@
+@import "tailwindcss";
+
+:root {
+  /* Vibrant Glass Tokens - LIGHT MODE */
+  --bg-color: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #737373;
+  --border-color: rgba(0, 0, 0, 0.06);
+  --hover-color: rgba(0, 0, 0, 0.04);
+  --card-bg: rgba(0, 0, 0, 0.02);
+  /* Glass Negro Sutil */
+  --glass-blur: 16px;
+
+  /* Instagram Vibes */
+  --accent-color: #0095f6;
+  --ig-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+
+  /* UI Constants */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+
+  /* Shared Components */
+  --overlay-bg: rgba(255, 255, 255, 0.4);
+  /* Overlay Claro para Blanco */
+}
+
+[data-theme='dark'] {
+  /* Vibrant Glass Tokens - DARK MODE */
+  --bg-color: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #a8a8a8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --hover-color: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.06);
+  /* Glass Blanco Sutil */
+  --overlay-bg: rgba(0, 0, 0, 0.85);
+  /* Overlay Oscuro para Negro */
+}
+
+body {
+  background-color: var(--bg-color) !important;
+  color: var(--text-primary) !important;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  transition: background-color 0.4s ease;
+}
+
+/* Glass Card System */
+.insta-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-lg);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.insta-card:hover {
+  border-color: var(--text-secondary);
+  background: var(--hover-color) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+}
+
+.insta-card:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Vibrant Actions */
+.insta-button {
+  background: var(--ig-gradient);
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 39, 67, 0.2);
+}
+
+.insta-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 39, 67, 0.3);
+}
+
+.insta-button:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+.insta-button-secondary {
+  background: var(--hover-color);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* Refined Input */
+.insta-input {
+  background: var(--hover-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  color: var(--text-primary);
+  width: 100%;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.insta-input.text-center {
+  text-align: center;
+}
+
+.insta-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: var(--bg-color);
+  box-shadow: 0 0 0 4px rgba(0, 149, 246, 0.1);
+}
+
+/* Ticket System (Always Physical Style) */
+.ticket-container {
+  font-family: "Courier New", Courier, monospace;
+  background: #ffffff;
+  color: #000000;
+  padding: 40px;
+  border-radius: 0;
+  border: 1px dashed #ccc;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.ticket-header {
+  text-align: center;
+  margin-bottom: 30px;
+  border-bottom: 1px double #000;
+  padding-bottom: 20px;
+}
+
+.ticket-divider {
+  border-top: 1px dashed #000;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.ticket-footer {
+  text-align: center;
+  margin-top: 30px;
+  border-top: 1px double #000;
+  padding-top: 20px;
+  font-size: 10px;
+}
+
+.animate-insta {
+  animation: insta-scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Native App feel transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hide scrollbars for a cleaner "app" look in main views */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animation Base */
+.animate-minimal {
+  animation: insta-vibrant-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes insta-vibrant-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-insta {
+  animation: insta-scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes insta-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Micro-Animación de Entrada Suave */
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smart Icon Visibility System */
+.platform-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: filter 0.4s ease;
+}
+
+/* In light mode, white/very light icons get slightly darkened only for contrast, not to lose color */
+[data-theme='light'] .platform-icon {
+  filter: brightness(0.9) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
+  object-fit: contain;
+  object-position: center;
+}
+
+/* In dark mode, icons stay original */
+[data-theme='dark'] .platform-icon {
+  filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Exceptions: if the icon is natively dark, it might need to stay or be inverted. 
+   But usually user refers to icons like Spotify/Netflix that have white/clear logos. */
+
+/* Hide Scrollbar Utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 10px;
+  opacity: 0.3;
+}
+
+/* Modal Glass Overlay */
+.modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+/* Starry Night Login Animations */
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle linear infinite;
+}
+
+@keyframes shooting-star {
+  0% {
+    transform: rotate(145deg) translateX(0);
+    opacity: 0;
+  }
+
+  1% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(125, 211, 252, 0.8));
+  }
+
+  8% {
+    transform: rotate(145deg) translateX(300vw);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotate(145deg) translateX(300vw);
+    opacity: 0;
+  }
+}
+
+.shooting-star {
+  position: absolute;
+  width: 300px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(125, 211, 252, 0.3), rgba(255, 255, 255, 1));
+  animation: shooting-star linear infinite;
+  opacity: 0;
+  border-radius: 999px;
+}
+
+.shooting-star::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  /* The comet head is on the right side of the 300px long tail */
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 15px 4px rgba(125, 211, 252, 1), 0 0 25px 6px rgba(255, 255, 255, 0.8);
+}

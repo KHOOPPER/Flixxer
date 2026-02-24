@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Diagnóstico Flixxer</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #000;
+            color: #0f0;
+        }
+
+        .ok {
+            color: #0f0;
+        }
+
+        .error {
+            color: #f00;
+        }
+
+        .warning {
+            color: #ff0;
+        }
+
+        pre {
+            background: #222;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Diagnóstico Flixxer</h1>
+    <div id="results"></div>
+
+    <script type="module">
+        const results = document.getElementById('results');
+
+        // 1. Verificar variables de entorno
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+        results.innerHTML += `<h2>📦 Variables de Entorno</h2>`;
+
+        if (supabaseUrl && supabaseKey) {
+            results.innerHTML += `<p class="ok">✅ VITE_SUPABASE_URL: ${supabaseUrl}</p>`;
+            results.innerHTML += `<p class="ok">✅ VITE_SUPABASE_ANON_KEY: ${supabaseKey.substring(0, 20)}...</p>`;
+        } else {
+            results.innerHTML += `<p class="error">❌ Variables de entorno NO detectadas</p>`;
+            results.innerHTML += `<p class="warning">⚠️ Necesitas hacer HARD REFRESH (Ctrl+Shift+R)</p>`;
+        }
+
+        // 2. Verificar si Supabase está importado
+        try {
+            const { isSupabaseEnabled } = await import('/src/db/supabase.js');
+            const enabled = isSupabaseEnabled();
+
+            if (enabled) {
+                results.innerHTML += `<p class="ok">✅ Supabase está HABILITADO en la App</p>`;
+            } else {
+                results.innerHTML += `<p class="error">❌ Supabase está DESHABILITADO</p>`;
+                results.innerHTML += `<p class="warning">⚠️ Haz HARD REFRESH (Ctrl+Shift+R) para recargar el .env</p>`;
+            }
+        } catch (error) {
+            results.innerHTML += `<p class="error">❌ Error importando supabase.js: ${error.message}</p>`;
+        }
+
+        // 3. Verificar localStorage
+        results.innerHTML += `<h2>💾 Estado de Migración</h2>`;
+        const supabaseMigrated = localStorage.getItem('supabase_migrated');
+
+        results.innerHTML += `<p>supabase_migrated: ${supabaseMigrated || 'NO'}</p>`;
+
+        if (supabaseMigrated) {
+            results.innerHTML += `<p class="warning">⚠️ La migración ya se ejecutó. Si quieres volver a migrar:</p>`;
+            results.innerHTML += `<button onclick="localStorage.removeItem('supabase_migrated'); location.reload();">Resetear Migración</button>`;
+        }
+    </script>
+</body>
+
+</html>
